@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boutique de Chimbombis | Panel & Catálogo</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="pre-start">
+
+    <div id="welcome-overlay" class="welcome-overlay">
+        <div class="welcome-modal welcome-hero">
+            <div class="welcome-hero-left">
+                <div class="welcome-hero-logo">
+                    <span class="welcome-hero-mark">C</span>
+                    <span class="welcome-hero-text">Boutique de Chimbombis</span>
+                </div>
+                <span class="welcome-hero-tag">Inicio</span>
+                <h1 class="welcome-hero-title">Bienvenida</h1>
+                <p class="welcome-hero-subtitle">Elige cómo quieres entrar a la boutique.</p>
+                <div class="welcome-hero-modes">
+                    <button id="buyer-mode-btn" class="btn btn-primary">
+                        Modo comprador
+                    </button>
+                    <button id="admin-mode-btn" class="btn btn-secondary">
+                        Modo administrador
+                    </button>
+                </div>
+            </div>
+            <div class="welcome-hero-right">
+                <div class="welcome-image-frame">
+                    <img src="assets/fondo_tienda.jpg" alt="Boutique de Chimbombis">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="logout-overlay" class="logout-overlay hidden">
+        <div class="logout-modal">
+            <div class="logout-icon">🔒</div>
+            <h2>Sesión cerrada</h2>
+            <p>Tu sesión ha sido cerrada. Vuelve a iniciar sesión para seguir gestionando el inventario.</p>
+            <button id="login-again-btn" class="btn btn-primary">
+                Iniciar sesión
+            </button>
+        </div>
+    </div>
+
+    <div id="detail-overlay" class="detail-overlay hidden">
+        <div class="detail-modal">
+            <div class="detail-header">
+                <div class="detail-title">
+                    <span class="detail-icon">📄</span>
+                    <div class="detail-text">
+                        <h3>Detalle del mueble</h3>
+                        <p id="detail-subtitle"></p>
+                    </div>
+                </div>
+                <button id="detail-close-btn" class="detail-close-btn">✕</button>
+            </div>
+            <div class="detail-body">
+                <div class="detail-columns">
+                    <div class="detail-column">
+                        <div class="image-card detail-image-card">
+                            <div class="image-logo">🪑</div>
+                            <div class="image-preview-wrapper">
+                                <img id="detail-image-preview" class="image-preview hidden" alt="Vista previa del mueble">
+                                <span id="detail-image-placeholder" class="image-placeholder">Sin imagen, puedes agregar una.</span>
+                            </div>
+                            <label class="btn btn-secondary btn-upload">
+                                <span class="btn-icon">⬆️</span>
+                                <span class="btn-text">Cambiar imagen</span>
+                                <input type="file" id="detail-image" accept="image/*" hidden>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="detail-column">
+                        <form id="detail-form">
+                            <input type="hidden" id="detail-id">
+                            <div class="form-group">
+                                <label for="detail-nombre">Nombre</label>
+                                <input type="text" id="detail-nombre" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="detail-descripcion">Descripción</label>
+                                <textarea id="detail-descripcion"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="detail-material">Categoría (perfume / ropa)</label>
+                                <input type="text" id="detail-material">
+                            </div>
+                            <div class="form-group-inline">
+                                <div class="form-group">
+                                    <label for="detail-precio">Precio ($)</label>
+                                    <input type="number" id="detail-precio" step="0.01" min="0" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="detail-stock">Stock</label>
+                                    <input type="number" id="detail-stock" min="0" required>
+                                </div>
+                            </div>
+                            <div class="detail-footer">
+                                <button type="button" id="detail-cancel-btn" class="btn btn-secondary">
+                                    <span class="btn-icon">✕</span>
+                                    <span class="btn-text">Cerrar</span>
+                                </button>
+                                <button type="submit" class="btn btn-primary">
+                                    <span class="btn-icon">💾</span>
+                                    <span class="btn-text">Guardar cambios</span>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="topbar">
+        <div class="topbar-inner">
+            <span class="topbar-main">ENVÍOS GRATIS A TODO MÉXICO</span>
+            <span class="topbar-extra">Compra mínima $1,499 • Código: FREEBOX</span>
+        </div>
+    </div>
+
+    <header class="bw-header">
+        <div class="header-inner">
+            <div class="brand">
+                <div class="brand-mark">C</div>
+                <div class="brand-text">
+                    <span class="brand-name">Boutique de Chimbombis</span>
+                    <span class="brand-subtitle">Perfumes · Ropa</span>
+                </div>
+            </div>
+            <nav class="main-nav">
+                <a href="#" class="nav-link active" data-category="Perfumes">Perfumes</a>
+                <a href="#" class="nav-link" data-category="Ropa Mujer">Ropa mujer</a>
+                <a href="#" class="nav-link" data-category="Ropa Hombre">Ropa hombre</a>
+                <a href="#" class="nav-link" data-category="Ofertas">Ofertas</a>
+                <a href="#" class="nav-link">Mi cuenta</a>
+            </nav>
+            <div class="header-actions">
+                <button class="icon-btn" type="button" title="Favoritos">♡</button>
+                <button class="icon-btn" type="button" title="Buscar">🔍</button>
+                <button class="icon-btn icon-cart" type="button" title="Carrito">
+                    <span class="icon-cart-symbol">🛒</span>
+                    <span id="cart-count" class="cart-count-badge">0</span>
+                </button>
+                <button id="logout-btn" class="btn btn-secondary btn-logout" type="button">
+                    <span class="btn-icon">🔓</span>
+                    <span class="btn-text">Cerrar sesión</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-inner">
+                <div class="hero-text">
+                    <h1>Boutique de Chimbombis</h1>
+                    <p>Gestiona productos, precios, imágenes y existencias con una interfaz inspirada en tiendas reales.</p>
+                </div>
+                <div class="hero-badge">
+                    <span class="hero-badge-label">Modo comprador</span>
+                </div>
+            </div>
+        </section>
+
+        <div class="main-layout">
+            <section class="catalog">
+                <div class="catalog-header">
+                    <div>
+                        <h2 class="catalog-title">Catálogo de productos</h2>
+                        <p class="catalog-subtitle" id="catalog-count">0 productos cargados</p>
+                    </div>
+                <div id="category-menu" class="category-menu">
+                </div>
+
+                    <div class="catalog-toolbar">
+                        <label class="toolbar-search">
+                            <span class="toolbar-icon">🔍</span>
+                            <input type="search" id="search-input" placeholder="Buscar por nombre o descripción...">
+                        </label>
+                        <select id="items-per-page" class="toolbar-select">
+                            <option value="5">Mostrar 5</option>
+                            <option value="10" selected>Mostrar 10</option>
+                            <option value="25">Mostrar 25</option>
+                            <option value="9999">Mostrar todos</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="catalog-body">
+                    <aside class="filters-panel">
+                        <h3 class="filters-title">Filtros</h3>
+                        <div class="filter-group">
+                            <label for="filter-material">Categoría (perfume / ropa)</label>
+                            <select id="filter-material">
+                                <option value="">Todos</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <span class="filter-label">Estado de stock</span>
+                            <ul class="filter-tags">
+                                <li class="filter-tag disabled">En stock</li>
+                                <li class="filter-tag disabled">Bajo stock</li>
+                                <li class="filter-tag disabled">Sin stock</li>
+                            </ul>
+                            <p class="filter-note">Estos filtros son visuales, el control real se hace con el campo de stock.</p>
+                        </div>
+                    </aside>
+
+                    <section class="products-panel">
+                        <div id="muebles-grid" class="cards-grid">
+                        </div>
+                        <div class="pagination-controls">
+                            <button id="prev-page-btn" class="btn btn-secondary" type="button">Anterior</button>
+                            <span id="page-info"></span>
+                            <button id="next-page-btn" class="btn btn-secondary" type="button">Siguiente</button>
+                        </div>
+                    </section>
+                </div>
+            </section>
+
+            <aside class="form-panel">
+                <div class="form-container">
+                    <h2>
+                        <span class="section-icon">➕</span>
+                        Ficha de producto
+                    </h2>
+                    <form id="mueble-form">
+                        <input type="hidden" id="mueble-id">
+                        <div class="form-group">
+                            <label for="nombre">Nombre</label>
+                            <input type="text" id="nombre" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="descripcion">Descripción</label>
+                            <textarea id="descripcion"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="material">Categoría (perfume / ropa)</label>
+                            <input type="text" id="material">
+                        </div>
+                        <div class="form-group-inline">
+                            <div class="form-group">
+                                <label for="precio">Precio ($)</label>
+                                <input type="number" id="precio" step="0.01" min="0" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="stock">Stock</label>
+                                <input type="number" id="stock" min="0" required>
+                            </div>
+                        </div>
+
+                        <div class="image-section">
+                            <h3 class="image-title">
+                                <span class="section-icon">🖼️</span>
+                                Imagen del mueble
+                            </h3>
+                            <div class="image-card">
+                                <div class="image-logo">🪑</div>
+                                <div class="image-preview-wrapper">
+                                    <img id="mueble-image-preview" class="image-preview hidden" alt="Vista previa del mueble">
+                                    <span id="mueble-image-placeholder" class="image-placeholder">Sin imagen, puedes agregar una.</span>
+                                </div>
+                                <label class="btn btn-secondary btn-upload">
+                                    <span class="btn-icon">⬆️</span>
+                                    <span class="btn-text">Importar imagen</span>
+                                    <input type="file" id="mueble-image" accept="image/*" hidden>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-buttons">
+                            <button type="submit" class="btn btn-primary">
+                                <span class="btn-icon">💾</span>
+                                <span class="btn-text">Guardar</span>
+                            </button>
+                            <button type="button" id="cancel-btn" class="btn btn-secondary" style="display: none;">
+                                <span class="btn-icon">↩️</span>
+                                <span class="btn-text">Cancelar</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <div class="footer-column">
+                <h4>Conoce Boutique de Chimbombis</h4>
+                <ul>
+                    <li><a href="#">Acerca de nosotros</a></li>
+                    <li><a href="#">Nuestras sucursales</a></li>
+                    <li><a href="#">Blog de decoración</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Ayuda y soporte</h4>
+                <ul>
+                    <li><a href="#">Envíos y tarifas</a></li>
+                    <li><a href="#">Cambios y devoluciones</a></li>
+                    <li><a href="#">Preguntas frecuentes</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Contacto</h4>
+                <ul>
+                    <li><a href="#">WhatsApp</a></li>
+                    <li><a href="#">Correo electrónico</a></li>
+                    <li><a href="#">Términos y condiciones</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span>© 2025 Boutique de Chimbombis · Boutique de Chimbombis de demostración</span>
+        </div>
+    </footer>
+
+    <a href="#" class="floating-whatsapp" aria-label="WhatsApp">
+        <span class="floating-icon">💬</span>
+    </a>
+    <button type="button" class="floating-rewards">
+        <span class="floating-gift">🎁</span>
+        <span class="floating-text">Recompensas</span>
+    </button>
+
+    <div id="toast" class="toast"></div>
+
+    <script src="app.js"></script>
+</body>
+</html>
